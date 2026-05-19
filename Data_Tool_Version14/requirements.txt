@@ -1,0 +1,14 @@
+numpy
+requests
+pandas
+openpyxl
+PyPDF2
+Pillow
+duckdb
+rapidfuzz
+Unidecode
+opencv-python-headless
+pypdfium2
+python-doctr
+torch
+--extra-index-url https://download.pytorch.org/whl/cpu
