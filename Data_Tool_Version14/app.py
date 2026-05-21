@@ -68,7 +68,7 @@ st.markdown("""
     }
     /* Sidebar restyling */
     [data-testid="stSidebar"] {
-        background-color: #f0f7ff;
+        background-color: 0d1117;
         border-right: 1px solid #d0e3ff;
     }
 </style>
