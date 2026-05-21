@@ -27,7 +27,14 @@ from PIL import Image
 import duckdb
 from rapidfuzz.distance import JaroWinkler
 
-import pythoncom
+try:
+    import pythoncom
+    import win32com.client
+    IS_WINDOWS = True
+except ModuleNotFoundError:
+    IS_WINDOWS = False
+    Print("Running on Linux/Cloud environment. pythoncom and win32com disabled.")
+  
 try:
     import win32com.client
     HAS_WIN32COM = True
@@ -942,6 +949,14 @@ def run_file_downloader(excel_path: str, url_col: str, rename_col: str, output_d
         return False
 
 def run_mail_merge_tool(excel_path: str, word_path: str, output_folder: str, start_dt: datetime, log_queue: List[Dict]) -> bool:
+    if not IS_WINDOWS:
+        logs_list.append({
+            "timestamp": time.strftime("%H:%M:%S"),
+            "level": "ERROR",
+            "message": "Mail Merge feature requires a Windows Environment with MS Word installed. It cannot run on Streamlit Cloud."
+        })
+        return False
+        
     def clean_file_name_mm(name: str) -> str:
         if name is None: return ""
         return re.sub(r'[\\/:*?"<>|]', '_', str(name).strip())
