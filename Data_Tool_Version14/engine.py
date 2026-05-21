@@ -33,7 +33,7 @@ try:
     IS_WINDOWS = True
 except ModuleNotFoundError:
     IS_WINDOWS = False
-    Print("Running on Linux/Cloud environment. pythoncom and win32com disabled.")
+    print("Running on Linux/Cloud environment. pythoncom and win32com disabled.")
   
 try:
     import win32com.client
