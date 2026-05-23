@@ -332,8 +332,29 @@ if app_mode == "🔍 Lookup Engine":
             with st.container(border=True):
                 st.markdown("<h4 style='color: #1565C0;'>⚙️ Configuration Paths</h4>", unsafe_allow_html=True)
                 
-                raw_input = st.text_input("Input Data upload (CSV/Excel)", value=st.session_state.le_input_file, placeholder=r"D:\data\input.csv", disabled=st.session_state.is_running, on_change=reset_loaded_metadata)
-                st.session_state.le_input_file = raw_input.strip('\"').strip("\'") if raw_input else ""
+                # raw_input = st.text_input("Input Data upload (CSV/Excel)", value=st.session_state.le_input_file, placeholder=r"D:\data\input.csv", disabled=st.session_state.is_running, on_change=reset_loaded_metadata)
+                # st.session_state.le_input_file = raw_input.strip('\"').strip("\'") if raw_input else ""
+
+                # USI JAGAH PAR YE NAYA CODE PASTE KAR DO:
+                uploaded_file = st.file_uploader(
+                  "Input Data upload (CSV/Excel)", 
+                   type=["csv", "xlsx", "xls"], 
+                   disabled=st.session_state.is_running,
+                   on_change=reset_loaded_metadata
+                )
+                 if uploaded_file is not None:
+                 temp_dir = "temp_uploads"
+                 if not os.path.exists(temp_dir):
+                 os.makedirs(temp_dir)
+        
+                temp_file_path = os.path.join(temp_dir, uploaded_file.name)
+    
+                with open(temp_file_path, "wb") as f:
+                f.write(uploaded_file.getbuffer())
+        
+                st.session_state.le_input_file = temp_file_path  # The old logic found its way back here!
+                else:
+                st.session_state.le_input_file = ""
                 
                 raw_lookup = st.text_area("Primary Lookup Folders (One per line)", value=st.session_state.le_lookup_folders, height=100, disabled=st.session_state.is_running, on_change=reset_loaded_metadata)
                 st.session_state.le_lookup_folders = raw_lookup.strip('\"').strip("\'") if raw_lookup else ""
