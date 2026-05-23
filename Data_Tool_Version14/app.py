@@ -335,9 +335,10 @@ if app_mode == "🔍 Lookup Engine":
                 # raw_input = st.text_input("Input Data upload (CSV/Excel)", value=st.session_state.le_input_file, placeholder=r"D:\data\input.csv", disabled=st.session_state.is_running, on_change=reset_loaded_metadata)
                 # st.session_state.le_input_file = raw_input.strip('\"').strip("\'") if raw_input else ""
 
-               # --- Ye bilkul barabar line me hona chahiye ---
+               # --- 1.format changes---
+               # SPECIAL FILE UPLOADER REPLACEMENT 2
             uploaded_file = st.file_uploader(
-                "Input Data upload (CSV/Excel)", 
+                "Input Data Upload (CSV/Excel)", 
                 type=["csv", "xlsx", "xls"], 
                 disabled=st.session_state.is_running,
                 on_change=reset_loaded_metadata
@@ -360,8 +361,32 @@ if app_mode == "🔍 Lookup Engine":
                 raw_lookup = st.text_area("Primary Lookup Folders (One per line)", value=st.session_state.le_lookup_folders, height=100, disabled=st.session_state.is_running, on_change=reset_loaded_metadata)
                 st.session_state.le_lookup_folders = raw_lookup.strip('\"').strip("\'") if raw_lookup else ""
                 
-                raw_special = st.text_input("Special Priority upload (Optional)", value=st.session_state.le_special_file, placeholder=r"D:\special_lookup.xlsx", disabled=st.session_state.is_running, on_change=reset_loaded_metadata)
-                st.session_state.le_special_file = raw_special.strip('\"').strip("\'") if raw_special else ""
+                # raw_special = st.text_input("Special Priority upload (Optional)", value=st.session_state.le_special_file, placeholder=r"D:\special_lookup.xlsx", disabled=st.session_state.is_running, on_change=reset_loaded_metadata)
+                # st.session_state.le_special_file = raw_special.strip('\"').strip("\'") if raw_special else ""
+
+                # -- 2-format changes
+                # --- SPECIAL FILE UPLOADER REPLACEMENT 2 ---
+                uploaded_special = st.file_uploader(
+                    "Special Priority Upload (Optional)", 
+                    type=["csv", "xlsx", "xls"], 
+                    disabled=st.session_state.is_running,
+                    on_change=reset_loaded_metadata
+                )
+
+                if uploaded_special is not None:
+                    temp_dir = "temp_uploads"
+                    if not os.path.exists(temp_dir):
+                        os.makedirs(temp_dir)
+                        
+                    temp_special_path = os.path.join(temp_dir, f"special_{uploaded_special.name}")
+                    
+                    with open(temp_special_path, "wb") as f:
+                        f.write(uploaded_special.getbuffer())
+                        
+                    st.session_state.le_special_file = temp_special_path
+                else:
+                    st.session_state.le_special_file = ""
+                # ----------------------------------------
                 
                 st.markdown("<h5 style='color: #1565C0;'>Output Rules</h5>", unsafe_allow_html=True)
                 raw_out = st.text_input("Save Outputs To", value=st.session_state.le_output_folder, placeholder=r"D:\output", disabled=st.session_state.is_running)
