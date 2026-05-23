@@ -332,13 +332,13 @@ if app_mode == "🔍 Lookup Engine":
             with st.container(border=True):
                 st.markdown("<h4 style='color: #1565C0;'>⚙️ Configuration Paths</h4>", unsafe_allow_html=True)
                 
-                raw_input = st.text_input("Input Data File (CSV/Excel)", value=st.session_state.le_input_file, placeholder=r"D:\data\input.csv", disabled=st.session_state.is_running, on_change=reset_loaded_metadata)
+                raw_input = st.text_input("Input Data upload (CSV/Excel)", value=st.session_state.le_input_file, placeholder=r"D:\data\input.csv", disabled=st.session_state.is_running, on_change=reset_loaded_metadata)
                 st.session_state.le_input_file = raw_input.strip('\"').strip("\'") if raw_input else ""
                 
                 raw_lookup = st.text_area("Primary Lookup Folders (One per line)", value=st.session_state.le_lookup_folders, height=100, disabled=st.session_state.is_running, on_change=reset_loaded_metadata)
                 st.session_state.le_lookup_folders = raw_lookup.strip('\"').strip("\'") if raw_lookup else ""
                 
-                raw_special = st.text_input("Special Priority File (Optional)", value=st.session_state.le_special_file, placeholder=r"D:\special_lookup.xlsx", disabled=st.session_state.is_running, on_change=reset_loaded_metadata)
+                raw_special = st.text_input("Special Priority upload (Optional)", value=st.session_state.le_special_file, placeholder=r"D:\special_lookup.xlsx", disabled=st.session_state.is_running, on_change=reset_loaded_metadata)
                 st.session_state.le_special_file = raw_special.strip('\"').strip("\'") if raw_special else ""
                 
                 st.markdown("<h5 style='color: #1565C0;'>Output Rules</h5>", unsafe_allow_html=True)
