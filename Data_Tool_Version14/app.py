@@ -43,13 +43,14 @@ st.set_page_config(page_title="High Scale Data Suite", page_icon="🚀", layout=
 # =========================================================
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&display=swap');
+
     /* Gradient Background for Headers */
     h1, h2, h3 {
         background: -webkit-linear-gradient(45deg, #1E88E5, #00ACC1);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-weight: 700;
+        font-style:italic;
     }
     /* Subtle tinted background for containers to make them pop */
     [data-testid="stVerticalBlockBorderWrapper"] {
